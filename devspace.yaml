@@ -1,0 +1,30 @@
+version: v1beta9
+images:
+  foo:
+    dockerfile: Dockerfile
+    image: dockerregistry.example.com/comavn-devspace-parallel-build-foo
+    tags:
+      - dev-${DEVSPACE_USERNAME}-${DEVSPACE_RANDOM}
+    build:
+      docker:
+        useBuildKit: true
+        options:
+          buildArgs:
+            timestamp: ${DEVSPACE_TIMESTAMP}
+  bar:
+    dockerfile: Dockerfile
+    image: dockerregistry.example.com/comavn-devspace-parallel-build-bar
+    tags:
+      - dev-${DEVSPACE_USERNAME}-${DEVSPACE_RANDOM}
+    build:
+      docker:
+        useBuildKit: true
+        options:
+          buildArgs:
+            timestamp: ${DEVSPACE_TIMESTAMP}
+deployments:
+  - name: dev
+    kubectl:
+      replaceImageTags: true
+      manifests:
+        - deployment.yaml

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: comavn-devspace-parallel-build
+  name: comavn-devspace-parallel-build
+spec:
+  selector:
+    matchLabels:
+      app: comavn-devspace-parallel-build
+  template:
+    metadata:
+      labels:
+        app: comavn-devspace-parallel-build
+    spec:
+      containers:
+      - image: dockerregistry.example.com/comavn-devspace-parallel-build-foo
+        name: comavn-devspace-parallel-build-foo
+      - image: dockerregistry.example.com/comavn-devspace-parallel-build-bar
+        name: comavn-devspace-parallel-build-bar
